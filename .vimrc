@@ -1,28 +1,4 @@
 scriptencoding utf-8
-set nocompatible
-
-syntax on
-filetype plugin on
-filetype indent on
-
-"行数を表示する
-set number
-
-"タブを空白に置き換える
-set expandtab
-
-"タブ文字の幅
-set tabstop=4
-
-"自動インデントでずれる幅
-set shiftwidth=4
-
-set softtabstop=4
-
-set autoindent
-set smartindent
-
-set hls
 
 "dein Scripts-----------------------------
 if &compatible
@@ -44,6 +20,8 @@ call dein#add('Shougo/neosnippet.vim')
 call dein#add('Shougo/neosnippet-snippets')
 call dein#add('Shougo/neocomplete')
 call dein#add('scrooloose/nerdtree')
+call dein#add('leafgarland/typescript-vim')
+call dein#add('w0ng/vim-hybrid')
 
 " You can specify revision/branch/tag.
 call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
@@ -61,11 +39,16 @@ endif
 
 "End dein Scripts-------------------------
 
-"NERDTree
-autocmd vimenter * NERDTree
+"NERDTree Scripts-------------------------
 let NERDTreeShowHidden = 1
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
-
+if !argc()
+  autocmd vimenter * NERDTree|normal gg3j
+endif
+if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary")
+  autocmd bufenter * q
+end
+"End NERDTree Scripts---------------------
 
 "neocomplete Scripts-------------------------
 "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
@@ -139,3 +122,51 @@ endif
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+"End neocomplete Scripts---------------------
+
+""""""""""""""""""""""""""""""
+" 各種オプションの設定
+""""""""""""""""""""""""""""""
+"スワップファイルは使わない
+set noswapfile
+
+set nocompatible
+
+"カーソルが何行目の何列目に置かれているかを表示する
+set ruler
+
+"入力中のコマンドを表示する
+set showcmd
+
+"構文毎に色分けする
+syntax on
+
+filetype plugin on
+filetype indent on
+
+"行数を表示する
+set number
+
+"タブを空白に置き換える
+set expandtab
+
+"タブ文字の幅
+set tabstop=2
+
+"自動インデントでずれる幅
+set shiftwidth=2
+
+set softtabstop=2
+
+set autoindent
+set smartindent
+
+"検索結果をハイライト表示する
+set hlsearch
+
+set background=dark
+colorscheme hybrid
+
+"ctags
+nnoremap <C-h> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
+nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
