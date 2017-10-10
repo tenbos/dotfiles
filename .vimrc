@@ -21,10 +21,15 @@ call dein#add('Shougo/neosnippet-snippets')
 call dein#add('Shougo/neocomplete')
 call dein#add('scrooloose/nerdtree')
 call dein#add('leafgarland/typescript-vim')
+
+" カラースキーム
 call dein#add('w0ng/vim-hybrid')
 
 " You can specify revision/branch/tag.
 call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+
+" JavaScript Syntax Highlight
+call dein#add('othree/yajs.vim')
 
 " Required:
 call dein#end()
@@ -170,3 +175,9 @@ colorscheme hybrid
 "ctags
 nnoremap <C-h> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
 nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
+
+"vimgrep
+autocmd QuickFixCmdPost *grep* cwindow
+
+"クリップボードを有効にする
+set clipboard=unnamed,autoselect
